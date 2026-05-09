@@ -1,5 +1,6 @@
 button{
-   height: 30px;
+    width: 150px;
+   height: 45px;
    padding-left: 15px; 
    padding-right: 15px;
    display: flex;
@@ -13,6 +14,8 @@ button{
    border: 1px solid rgba(255, 255, 255, 0.35);
    text-align: center;
    transition: background 100ms ease;
+   font-weight: 500;
+   font-size: 14px;
 }
 
 button:hover{
@@ -31,7 +34,7 @@ button:active{
 }
 
 .plus{
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
 }
 
