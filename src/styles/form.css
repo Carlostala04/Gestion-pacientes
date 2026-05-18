@@ -1,0 +1,317 @@
+.register-section {
+  width: 100%;
+  height: auto;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 8px;
+  
+}
+
+.form-patient {
+  width: 100%;
+  min-height: calc(100vh - 100px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 40px 20px;
+  grid-column: span 2 / span 2;
+  grid-row: span 5 / span 5;
+}
+
+.form {
+  width: 100%;
+  max-width: 520px;
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 40px 48px;
+  box-shadow: 0 4px 24px rgba(63, 141, 155, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form label {
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #4a5568;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-top: 14px;
+}
+
+.form label:first-child {
+  margin-top: 0;
+}
+
+.form input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  color: #2d3748;
+  background-color: #f8f7f4;
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.form input::placeholder {
+  color: #a0aec0;
+}
+
+.form input:focus {
+  border-color: #3f8d9b;
+  box-shadow: 0 0 0 3px rgba(63, 141, 155, 0.15);
+  background-color: #fff;
+}
+
+/* ── Contenedor principal ── */
+.form .react-calendar {
+  width: 100%;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  background-color: #fff;
+  padding: 12px;
+  overflow: hidden;
+}
+
+/* ── Barra de navegación (mes / año + flechas) ── */
+.form .react-calendar__navigation {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 2px;
+}
+
+.form .react-calendar__navigation button {
+  min-width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  color: #2d3748;
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+  width: auto;
+  padding: 0 6px;
+}
+
+.form .react-calendar__navigation__label {
+  flex-grow: 1;
+  font-weight: 600;
+  font-size: 14px;
+  color: #2d3748;
+  letter-spacing: 0.3px;
+}
+
+.form .react-calendar__navigation__arrow {
+  font-size: 18px;
+  color: #4a5568;
+}
+
+.form .react-calendar__navigation button:enabled:hover,
+.form .react-calendar__navigation button:enabled:focus {
+  background-color: #e8f5f7;
+  color: #3f8d9b;
+  outline: none;
+}
+
+.form .react-calendar__navigation button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* ── Cabecera de días de la semana ── */
+.form .react-calendar__month-view__weekdays {
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.form .react-calendar__month-view__weekdays__weekday {
+  padding: 4px 0;
+  font-size: 11px;
+  font-weight: 700;
+  color: #3f8d9b;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.form .react-calendar__month-view__weekdays__weekday abbr {
+  text-decoration: none;
+}
+
+/* ── Tiles (días) ── */
+.form .react-calendar__tile {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: #2d3748;
+  cursor: pointer;
+  transition:
+    background-color 0.15s,
+    color 0.15s;
+  padding: 6px 0;
+}
+
+.form .react-calendar__tile:enabled:hover {
+  background-color: #e8f5f7;
+  color: #3f8d9b;
+  border-radius: 8px;
+}
+
+.form .react-calendar__tile:enabled:focus {
+  outline: none;
+  background-color: #e8f5f7;
+}
+
+/* Días de meses vecinos */
+.form .react-calendar__month-view__days__day--neighboringMonth {
+  color: #c0cdd8;
+}
+
+/* Fin de semana */
+.form .react-calendar__month-view__days__day--weekend {
+  color: #e07a7a;
+}
+
+/* Hoy */
+.form .react-calendar__tile--now {
+  background-color: #f0fafa;
+  color: #3f8d9b;
+  font-weight: 700;
+  border-radius: 8px;
+}
+
+.form .react-calendar__tile--now:enabled:hover {
+  background-color: #cfe8df;
+}
+
+/* Día seleccionado */
+.form .react-calendar__tile--active {
+  background-color: #3f8d9b !important;
+  color: #fff !important;
+  font-weight: 600;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(63, 141, 155, 0.35);
+}
+
+.form .react-calendar__tile--active:enabled:hover,
+.form .react-calendar__tile--active:enabled:focus {
+  background-color: #347681 !important;
+}
+
+/* Vista de décadas/años */
+.form .react-calendar__year-view__months__month,
+.form .react-calendar__decade-view__years__year,
+.form .react-calendar__century-view__decades__decade {
+  border-radius: 8px;
+  font-size: 13px;
+  padding: 10px 4px;
+}
+
+.form-submit-btn {
+  margin-top: 28px;
+  padding: 13px;
+  width: 100%;
+  background-color: #3f8d9b;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition:
+    background-color 0.2s,
+    transform 0.1s;
+}
+
+.form-submit-btn:hover {
+  background-color: #347681;
+}
+
+.form-submit-btn:active {
+  transform: scale(0.98);
+}
+.quicks-access {
+  width: 70%;
+  grid-column: span 3 / span 3;
+  grid-row: span 2 / span 2;
+  grid-column-start: 3;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(63, 141, 155, 0.1);
+  margin-top: 40px;
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-self: start;
+}
+
+.quicks-access h4 {
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #3f8d9b;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-bottom: 16px;
+  border-bottom: 1.5px solid #e8f5f7;
+  margin: 0;
+}
+
+.quicks-access > div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.access {
+  width: 50%;
+  height: 52px;
+  background-color: #f8fdfd;
+  border: 1.5px solid #d4edf0;
+  border-radius: 10px;
+  color: #2d3748;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  justify-content: space-between;
+  padding: 0 18px;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s,
+    transform 0.1s;
+}
+
+.access:hover {
+  background-color: #e8f5f7;
+  border-color: #3f8d9b;
+  box-shadow: 0 2px 8px rgba(63, 141, 155, 0.15);
+  color: #3f8d9b;
+}
+
+.access:active {
+  background-color: #d4edf0;
+  transform: scale(0.98);
+}
