@@ -12,15 +12,7 @@ MediRecord es un sistema de administración clínica diseñado para simplificar 
 
 ## Stack tecnológico
 
-<!-- ICONOS DE TECNOLOGÍAS -->
-<!-- Reemplaza los iconos de abajo usando uno de los recursos al final de esta sección -->
-
-<!-- Ejemplo con Skill Icons (recomendado) -->
-<!-- ![Skills](https://skillicons.dev/icons?i=react,vite,js,css,eslint) -->
-
-<!-- Ejemplo con shields.io (un badge por línea) -->
-<!-- ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) -->
-<!-- ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white) -->
+ ![Skills](https://skillicons.dev/icons?i=react,vite,js,css,eslint)
 
 | Categoría | Tecnología |
 | --------- | --------- |
@@ -31,38 +23,6 @@ MediRecord es un sistema de administración clínica diseñado para simplificar 
 | Optimización | React Compiler (Babel preset) |
 | Estilos | CSS Modules (vanilla CSS) |
 | Linting | ESLint 9 |
-
-### Recursos para iconos
-
-Hay dos formas populares de agregar iconos de tecnologías en un README de GitHub:
-
-**Opción 1 — Skill Icons** (más fácil, solo una URL)
-
-Visita [skillicons.dev](https://skillicons.dev) y arma tu URL con los nombres de las tecnologías separados por coma:
-
-```md
-![Skills](https://skillicons.dev/icons?i=react,vite,js,css,eslint)
-```
-
-Resultado: una fila de iconos coloridos y uniformes. Puedes agregar `&theme=light` o `&theme=dark` y `&perline=5` para controlar cuántos van por fila.
-
-**Opción 2 — Shields.io** (más personalizable, un badge por tecnología)
-
-Visita [shields.io](https://shields.io) o copia el patrón directo:
-
-```md
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![ESLint](https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white)
-```
-
-Los nombres de los logos (`logo=react`, `logo=vite`, etc.) vienen de [Simple Icons](https://simpleicons.org) — busca ahí el nombre exacto de cualquier tecnología.
-
-**Cómo colocarlos:** elige una opción, copia el bloque de markdown, pégalo en el espacio marcado arriba dentro del bloque `<p align="center">` y elimina los comentarios `<!-- -->`.
-
----
 
 ## Funcionalidades principales
 
