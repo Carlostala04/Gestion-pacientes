@@ -4,6 +4,7 @@ import Form from "../components/Form";
 import { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import "../styles/calendar.css"
 import "../styles/form.css";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
