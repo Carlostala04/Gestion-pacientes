@@ -6,6 +6,7 @@ import { getSaludoPorHora } from "../hooks/DateGreeting";
 import InfoCards from "../components/InfoCards";
 import CardList from "../components/CardList";
 import "../styles/cardList.css";
+import { useNavigate } from "react-router-dom";
 const pacientesRecientes = [
   {
     id: 1,
@@ -101,6 +102,7 @@ export default function Home() {
     dateStyle: "full",
   });
   const time = useReloj();
+  const navegate = useNavigate()
 
   return (
     <>
@@ -138,7 +140,7 @@ export default function Home() {
         <section className="table-section">
           <CardList
             title={"Agenda del dia"}
-            action={null}
+            action={()=>navegate("/register")}
             button_title={"Registrar paciente"}
             data={agendaDelDia}
             renderItem={(p) => (
