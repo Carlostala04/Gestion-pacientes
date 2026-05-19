@@ -1,4 +1,4 @@
-button:not(.dropdown-trigger):not(.dropdown-option):not([class*="react-calendar"]) {
+button:not(.dropdown-trigger):not(.dropdown-option):not([class*="react-calendar"]):not([class*="react-datepicker"]) {
   width: 150px;
   height: 45px;
   padding-left: 15px;
@@ -29,11 +29,11 @@ button:not(.dropdown-trigger):not(.dropdown-option):not([class*="react-calendar"
   font-size: 14px;
 }
 
-button:not(.access):not(.dropdown-trigger):not(.dropdown-option):not([class*="react-calendar"]):hover {
+button:not(.access):not(.dropdown-trigger):not(.dropdown-option):not([class*="react-calendar"]):not([class*="react-datepicker"]):hover {
   background-color: #3d8794;
 }
 
-button:not(.access):not(.dropdown-trigger):not(.dropdown-option):not([class*="react-calendar"]):active {
+button:not(.access):not(.dropdown-trigger):not(.dropdown-option):not([class*="react-calendar"]):not([class*="react-datepicker"]):active {
   background-color: #347681;
   scale: 0.96;
 }
