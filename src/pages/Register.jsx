@@ -65,8 +65,8 @@ export default function Register() {
               onChange={(e) => setPaciente_direccion(e.target.value)}
               value={paciente_direccion}
             />
+            <label>Genero</label>
             <DropDown
-              label="Genero"
               placeholder="Seleccionar genero..."
               value={paciente_genero}
               onChange={(value) => setPaciente_genero(value)}
