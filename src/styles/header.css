@@ -1,79 +1,94 @@
 header {
-  width: 100vw;
-  height: 100px;
+  width: 100%;
+  height: 68px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-direction: row;
-  background-color: #3f8d9b;
-  padding: 10px;
+  background-color: var(--color-primary);
+  padding: 0 28px;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
+/* ── Brand ─────────────────────────────────── */
 .page-title {
-  width: auto;
-  height: 100%;
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
   flex-direction: column;
+  gap: 2px;
+  min-width: 160px;
 }
+
 .title {
-  font-family: "Poppins", sans-serif;
-  font-size: 26px;
+  font-family: var(--font-brand);
+  font-size: 22px;
   font-weight: 700;
-  letter-spacing: 0.5px;
   color: #fff;
+  letter-spacing: 0.3px;
+  line-height: 1;
 }
+
 .sub-title {
-  font-family: "Inter", sans-serif;
-  font-size: 12px;
+  font-family: var(--font-sans);
+  font-size: 10px;
   font-weight: 500;
-  color: #cfe8df;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
-.user-name {
-  font-family: "Raleway", sans-serif;
-  font-size: 16px;
-  font-weight: 300;
-  color: #fff;
+  color: rgba(255, 255, 255, 0.65);
   letter-spacing: 2px;
   text-transform: uppercase;
 }
+
+/* ── Navigation ────────────────────────────── */
 .buttons {
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 100%;
-  gap: 50px;
+  gap: 8px;
 }
+
+.buttons button {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.28) !important;
+  color: #fff !important;
+}
+
+.buttons button:hover {
+  background-color: rgba(255, 255, 255, 0.22) !important;
+  border-color: rgba(255, 255, 255, 0.45) !important;
+}
+
+.buttons button:active {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* ── User ──────────────────────────────────── */
 .user {
-  height: 100%;
   display: flex;
   align-items: center;
+  gap: 12px;
+  min-width: 160px;
   justify-content: flex-end;
-  margin-right: 25px;
-  gap: 15px;
 }
 
 .bubble {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #347681;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background-color: rgba(255, 255, 255, 0.18);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
   color: #fff;
-  text-align: center;
-  padding-top: 7px;
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    "Open Sans",
-    "Helvetica Neue",
-    sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+
+.user-name {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.5px;
+  white-space: nowrap;
 }

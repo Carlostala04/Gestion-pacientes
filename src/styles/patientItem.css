@@ -4,13 +4,13 @@
   align-items: center;
   gap: 14px;
   padding: 14px 20px;
-  border-bottom: 1px solid #f0ede6;
+  border-bottom: 1px solid var(--color-border-warm);
   cursor: pointer;
-  transition: background-color 0.15s;
+  transition: background-color var(--transition-fast);
 }
 
 .item-container:hover {
-  background-color: #faf9f5;
+  background-color: var(--color-primary-xlight);
 }
 
 .item-container:last-child {
@@ -19,10 +19,10 @@
 
 /* ── Avatar ─────────────────────────────────── */
 .item-icon-container {
-  background: linear-gradient(135deg, #5a9fd4, #3a78b5);
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
+  background: linear-gradient(135deg, #5aabba, #3a8a9b);
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-full);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,11 +30,10 @@
 }
 
 .item-icon {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   color: #ffffff;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
+  font-family: var(--font-sans);
   letter-spacing: 0.5px;
 }
 
@@ -42,44 +41,46 @@
 .item-info {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
   flex: 1;
+  min-width: 0;
 }
 
 .item-info h3 {
-  color: #1a1a18;
-  font-size: 14px;
+  color: var(--color-text-primary);
+  font-size: var(--text-base);
   font-weight: 500;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
+  font-family: var(--font-sans);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .item-info-dates {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .item-info-dates p {
-  color: #8a8a85;
-  font-size: 12px;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-family: var(--font-sans);
 }
 
 .item-info-dates span {
-  color: #d0cec8;
+  color: var(--color-border);
   font-size: 10px;
 }
 
 /* ── Chevron hint ───────────────────────────── */
 .item-chevron {
-  color: #ccc8c0;
+  color: var(--color-border);
   flex-shrink: 0;
-  transition: color 0.15s, transform 0.15s;
+  transition: color var(--transition-fast), transform var(--transition-fast);
 }
 
 .item-container:hover .item-chevron {
-  color: #4a90d9;
-  transform: translateX(2px);
+  color: var(--color-primary);
+  transform: translateX(3px);
 }
