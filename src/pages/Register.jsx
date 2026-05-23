@@ -23,7 +23,7 @@ export default function Register() {
   const [paciente_genero, setPaciente_genero] = useState("");
   return (
     <>
-      <Header />
+      <Header user_name={"Carlos"} user_last_name={"Rodriguez"}/>
       <section className="register-section">
         <div className="form-patient">
           <Form>
