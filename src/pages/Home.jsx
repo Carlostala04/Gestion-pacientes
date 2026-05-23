@@ -106,7 +106,7 @@ export default function Home() {
 
   return (
     <>
-      <Header />
+      <Header user_name={"Carlos"} user_last_name={"Rodriguez"}/>
       <main className="home-screen">
         <section className="welcome">
           <h2 className="welcome-message">{getSaludoPorHora()}, DR Carlos</h2>
