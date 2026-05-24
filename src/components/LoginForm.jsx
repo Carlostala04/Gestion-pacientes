@@ -141,7 +141,7 @@ function LoginFields() {
         </div>
       </div>
       <div className="form-actions">
-        <button type="submit" className="btn-primary" onClick={()=>navegate("/")}>
+        <button type="submit" className="btn-primary" onClick={()=>navegate("/home")}>
           Iniciar sesión
         </button>
         <div className="divider">o continúa con</div>
@@ -261,7 +261,7 @@ function RegisterFields() {
         </div>
       </div>
       <div className="form-actions">
-        <button type="submit" className="btn-primary" onClick={()=>navegate("/")}>
+        <button type="submit" className="btn-primary" onClick={()=>navegate("/home")}>
           Crear cuenta
         </button>
         <div className="divider">o regístrate con</div>
