@@ -163,3 +163,39 @@ footer {
   font-size: var(--text-sm);
   padding: 20px;
 }
+
+/* ── Responsive ─────────────────────────────── */
+@media (max-width: 1024px) {
+  .record-wrapper {
+    padding: 28px 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .record-wrapper {
+    padding: 20px 16px;
+    gap: 16px;
+  }
+
+  .search {
+    flex-wrap: wrap;
+  }
+
+  .search-input-wrapper {
+    max-width: 100%;
+  }
+
+  .filter-dropdown {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .record-wrapper {
+    padding: 16px 12px;
+  }
+
+  .title-record {
+    font-size: var(--text-xl);
+  }
+}

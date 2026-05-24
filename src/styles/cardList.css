@@ -190,3 +190,26 @@
 .card-header button:hover {
   background-color: var(--color-primary-dark) !important;
 }
+
+/* ── Responsive ─────────────────────────────── */
+@media (max-width: 1024px) {
+  .card-list {
+    max-height: none;
+    min-height: 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-list {
+    max-height: none;
+  }
+
+  .card-header {
+    padding: 12px 14px;
+  }
+
+  .data,
+  .patient-row {
+    padding: 10px 14px;
+  }
+}

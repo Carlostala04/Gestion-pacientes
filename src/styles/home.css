@@ -63,3 +63,52 @@
   padding: 24px 32px;
   align-items: flex-start;
 }
+
+/* ── Responsive ────────────────────────────── */
+@media (max-width: 1024px) {
+  .cards-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .table-section {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  .welcome {
+    padding: 20px 16px 14px;
+  }
+
+  .time {
+    position: static;
+    font-size: var(--text-base);
+    margin-top: 4px;
+  }
+
+  .cards-section {
+    padding: 16px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .table-section {
+    padding: 16px;
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-message {
+    font-size: var(--text-lg);
+  }
+
+  .cards-section {
+    grid-template-columns: 1fr;
+  }
+
+  .time {
+    display: none;
+  }
+}

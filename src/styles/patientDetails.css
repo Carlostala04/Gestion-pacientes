@@ -322,3 +322,59 @@ button.timeline-edit-btn:hover {
   margin: 0;
   line-height: 1.55;
 }
+
+/* ── Responsive ──────────────────────────────── */
+@media (max-width: 1024px) {
+  .details-wrapper {
+    padding: 28px 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .details-wrapper {
+    padding: 20px 16px;
+    gap: var(--space-6);
+  }
+
+  .details-profile-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+    padding: var(--space-6) var(--space-5);
+  }
+
+  .details-kpis {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .details-timeline-header {
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .details-btn-group {
+    flex-wrap: wrap;
+  }
+
+  .details-timeline-section {
+    padding: var(--space-5);
+  }
+}
+
+@media (max-width: 480px) {
+  .details-wrapper {
+    padding: 16px 12px;
+  }
+
+  .title-details {
+    font-size: var(--text-xl);
+  }
+
+  .details-kpis {
+    grid-template-columns: 1fr;
+  }
+
+  .details-full-name {
+    font-size: var(--text-xl);
+  }
+}
