@@ -8,56 +8,10 @@ import CardList from "../components/CardList";
 import "../styles/cardList.css";
 import { useNavigate } from "react-router-dom";
 const pacientesRecientes = [
-  {
-    id: 1,
-    nombre: "María García López",
-    iniciales: "MG",
-    avatarColor: "#d1f0e8",
-    avatarText: "#2a8a6e",
-    idPaciente: "ID-0042",
-    tiempo: "Modificado hoy",
-    tipo: "Seguimiento",
-  },
-  {
-    id: 2,
-    nombre: "Juan Ramírez Vega",
-    iniciales: "JR",
-    avatarColor: "#ddeeff",
-    avatarText: "#3a6fa8",
-    idPaciente: "ID-0039",
-    tiempo: "Hace 2 horas",
-    tipo: "Nuevo",
-  },
-  {
-    id: 3,
-    nombre: "Carmen Soto Mora",
-    iniciales: "CS",
-    avatarColor: "#e8e0f8",
-    avatarText: "#6a4fa8",
-    idPaciente: "ID-0037",
-    tiempo: "Ayer",
-    tipo: "Rutina",
-  },
-  {
-    id: 4,
-    nombre: "Andrés Luna Pérez",
-    iniciales: "AL",
-    avatarColor: "#fde8c8",
-    avatarText: "#c47a1a",
-    idPaciente: "ID-0035",
-    tiempo: "25 abr",
-    tipo: "Urgente",
-  },
-  {
-    id: 5,
-    nombre: "Patricia Vargas",
-    iniciales: "PV",
-    avatarColor: "#fde0e0",
-    avatarText: "#c44a4a",
-    idPaciente: "ID-0034",
-    tiempo: "24 abr",
-    tipo: "Seguimiento",
-  },
+  { id: 4, nombre: "Sofía Ramírez Castro",  iniciales: "SR", tiempo: "Hace 11 días", tipo: "Rutina"      },
+  { id: 2, nombre: "María González Vega",   iniciales: "MG", tiempo: "Hace 22 días", tipo: "Seguimiento" },
+  { id: 1, nombre: "Carlos López Herrera",  iniciales: "CL", tiempo: "10 abr",       tipo: "Rutina"      },
+  { id: 3, nombre: "Andrés Martínez Ruiz",  iniciales: "AM", tiempo: "18 mar",       tipo: "Seguimiento" },
 ];
 
 const agendaDelDia = [
@@ -166,13 +120,13 @@ export default function Home() {
               <div className="patient-row" key={p.id} onClick={() => navegate(`/patient/${p.id}`)}>
                 <div
                   className="patient-avatar"
-                  style={{ backgroundColor: p.avatarColor, color: p.avatarText }}
+                  style={{ background: "linear-gradient(135deg, #5aabba, #3a8a9b)", color: "#ffffff" }}
                 >
                   {p.iniciales}
                 </div>
                 <div className="patient-info">
                   <span className="name">{p.nombre}</span>
-                  <span className="patient-meta">{p.idPaciente} · {p.tiempo}</span>
+                  <span className="patient-meta">{p.tiempo}</span>
                 </div>
                 <span className={`patient-badge badge-${p.tipo.toLowerCase()}`}>
                   {p.tipo}
