@@ -86,7 +86,7 @@ export default function Register() {
             <Button
               title={"Ir al inicio"}
               icon={Arrow}
-              onclick={() => navegate("/")}
+              onclick={() => navegate("/home")}
               type={"access"}
             />
             <Button

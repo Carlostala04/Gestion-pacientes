@@ -17,7 +17,7 @@ export default function Header({ user_name, user_last_name }) {
           <span className="sub-title">Sistema de gestion de clinica</span>
         </div>
         <div className="buttons">
-          <Button icon={Home} title={"Home"} onclick={() => navigate("/")} />
+          <Button icon={Home} title={"Home"} onclick={() => navigate("/home")} />
           <Button
             icon={Plus}
             title={"Nuevo paciente"}
