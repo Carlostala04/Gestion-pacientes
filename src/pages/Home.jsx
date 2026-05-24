@@ -128,10 +128,7 @@ export default function Home() {
                   <span className="name">{p.nombre}</span>
                   <span className="patient-meta">{p.tiempo}</span>
                 </div>
-                <span className={`patient-badge badge-${p.tipo.toLowerCase()}`}>
-                  {p.tipo}
-                </span>
-              </div>
+                </div>
             )}
           />
         </section>
