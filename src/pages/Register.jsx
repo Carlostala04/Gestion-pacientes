@@ -92,7 +92,7 @@ export default function Register() {
             <Button
               title={"Ir a Historiales"}
               icon={Arrow}
-              onclick={() => navegate("/")}
+              onclick={() => navegate("/Record")}
               type={"access"}
             />
           </div>

@@ -59,8 +59,8 @@ export default function Record() {
       return full.includes(search.toLowerCase());
     })
     .sort((a, b) => {
-      if (filter === "az") return a.last_name_patient.localeCompare(b.last_name_patient, "es");
-      if (filter === "za") return b.last_name_patient.localeCompare(a.last_name_patient, "es");
+      if (filter === "az") return a.name_patient.localeCompare(b.name_patient, "es");
+      if (filter === "za") return b.name_patient.localeCompare(a.name_patient, "es");
       if (filter === "recientes") return new Date(b.last_visit_date) - new Date(a.last_visit_date);
       if (filter === "antiguos") return a.id - b.id;
       return 0;
