@@ -146,6 +146,15 @@
   flex-direction: column;
 }
 
+/* ── Empty state ────────────────────────────── */
+.record-empty {
+  padding: 32px 20px;
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  color: var(--color-text-placeholder);
+}
+
 /* ── Footer ─────────────────────────────────── */
 footer {
   text-align: center;

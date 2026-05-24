@@ -66,6 +66,75 @@
   background-color: #fff;
 }
 
+/* ── Form actions row ── */
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.form-actions .form-submit-btn {
+  flex: 1;
+  margin-top: 0;
+  width: auto;
+}
+
+.form-cancel-btn {
+  flex: 1;
+  padding: 13px;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: 600;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: background-color var(--transition-base), border-color var(--transition-base), color var(--transition-base);
+}
+
+.form-cancel-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background-color: var(--color-primary-xlight);
+}
+
+.form-cancel-btn:active {
+  transform: scale(0.98);
+}
+
+/* ── Print button ── */
+button.btn-print {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  height: auto;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  align-self: flex-start;
+  margin-top: 8px;
+  transition: border-color var(--transition-fast), color var(--transition-fast), background-color var(--transition-fast);
+}
+
+button.btn-print:not(:disabled):hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background-color: var(--color-primary-xlight);
+}
+
+button.btn-print:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
 /* ── Posición del popup ── */
 .react-datepicker-popper {
   margin-top: 8px !important;
