@@ -36,7 +36,7 @@ export default function RegisterConsulta() {
             value={diagnostic}
             onChange={(e) => setDiagnostic(e.target.value)}
           />
-          <label>Observaciones</label>
+          <label>Observaciones (Examen fisico)</label>
           <textarea
             placeholder="Sintomas, indicaciones..."
             rows={1}
