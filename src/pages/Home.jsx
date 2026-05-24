@@ -159,11 +159,11 @@ export default function Home() {
           />
           <CardList
             title={"Pacientes recientes"}
-            action={null}
+            action={() => navegate("/Record")}
             data={pacientesRecientes}
             button_title={"Ver todos"}
             renderItem={(p) => (
-              <div className="patient-row" key={p.id}>
+              <div className="patient-row" key={p.id} onClick={() => navegate(`/patient/${p.id}`)}>
                 <div
                   className="patient-avatar"
                   style={{ backgroundColor: p.avatarColor, color: p.avatarText }}
