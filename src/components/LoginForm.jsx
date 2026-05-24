@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function EyeIcon({ open }) {
   return open ? (
@@ -97,6 +97,7 @@ function PasswordStrength({ password }) {
 
 function LoginFields() {
   const [showPassword, setShowPassword] = useState(false);
+  const navegate = useNavigate();
 
   return (
     <>
@@ -140,7 +141,7 @@ function LoginFields() {
         </div>
       </div>
       <div className="form-actions">
-        <button type="submit" className="btn-primary">
+        <button type="submit" className="btn-primary" onClick={()=>navegate("/")}>
           Iniciar sesión
         </button>
         <div className="divider">o continúa con</div>
@@ -170,6 +171,8 @@ function RegisterFields() {
     "Psiquiatría",
     "Otra",
   ];
+    const navegate = useNavigate();
+
 
   return (
     <>
@@ -258,7 +261,7 @@ function RegisterFields() {
         </div>
       </div>
       <div className="form-actions">
-        <button type="submit" className="btn-primary">
+        <button type="submit" className="btn-primary" onClick={()=>navegate("/")}>
           Crear cuenta
         </button>
         <div className="divider">o regístrate con</div>
