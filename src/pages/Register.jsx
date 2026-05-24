@@ -21,6 +21,8 @@ export default function Register() {
     new Date(),
   );
   const [paciente_genero, setPaciente_genero] = useState("");
+  const [paciente_condicion, setPaciente_condicion] = useState("");
+  const [paciente_condicion_otro, setPaciente_condicion_otro] = useState("");
   return (
     <>
       <Header user_name={"Carlos"} user_last_name={"Rodriguez"}/>
@@ -75,6 +77,35 @@ export default function Register() {
                 { value: "femenino", label: "Femenino" },
               ]}
             />
+            <label>Condición crónica:</label>
+            <DropDown
+              placeholder="Seleccionar condición..."
+              value={paciente_condicion}
+              onChange={(value) => setPaciente_condicion(value)}
+              options={[
+                { value: "hipertenso",  label: "Hipertenso/a"     },
+                { value: "diabetico",   label: "Diabético/a"      },
+                { value: "asmatico",    label: "Asmático/a"       },
+                { value: "cardiaco",    label: "Cardíaco/a"       },
+                { value: "renal",       label: "Renal crónico/a"  },
+                { value: "artritis",    label: "Artritis"         },
+                { value: "tiroides",    label: "Tiroides"         },
+                { value: "anemico",     label: "Anémico/a"        },
+                { value: "alergico",    label: "Alérgico/a"       },
+                { value: "otro",        label: "Otro"             },
+              ]}
+            />
+            {paciente_condicion === "otro" && (
+              <>
+                <label>Especificar condición:</label>
+                <input
+                  type="text"
+                  placeholder="Ej: Lupus, Fibromialgia..."
+                  onChange={(e) => setPaciente_condicion_otro(e.target.value)}
+                  value={paciente_condicion_otro}
+                />
+              </>
+            )}
             <button type="submit" className="form-submit-btn">
               Registrar paciente
             </button>
