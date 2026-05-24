@@ -4,7 +4,7 @@ import { useState } from "react";
 import DropDown from "../components/DropDown";
 import PatientItem from "../components/PatientItem";
 import "../styles/record.css";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const patients = [
   {
     id: 1,
@@ -40,8 +40,32 @@ const patients = [
   },
 ];
 
+const filterOptions = [
+  { value: "recientes", label: "Visita más reciente" },
+  { value: "az",        label: "Nombre A → Z" },
+  { value: "za",        label: "Nombre Z → A" },
+  { value: "antiguos",  label: "Registro más antiguo" },
+];
+
 export default function Record() {
-  const [patient, setPatient] = useState(null);
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState("");
+  const navigate = useNavigate();
+
+  const visiblePatients = patients
+    .filter((p) => {
+      if (!search.trim()) return true;
+      const full = `${p.name_patient} ${p.last_name_patient} ${p.second_last_name_patiente}`.toLowerCase();
+      return full.includes(search.toLowerCase());
+    })
+    .sort((a, b) => {
+      if (filter === "az") return a.last_name_patient.localeCompare(b.last_name_patient, "es");
+      if (filter === "za") return b.last_name_patient.localeCompare(a.last_name_patient, "es");
+      if (filter === "recientes") return new Date(b.last_visit_date) - new Date(a.last_visit_date);
+      if (filter === "antiguos") return a.id - b.id;
+      return 0;
+    });
+
   return (
     <>
       <Header user_name={"Carlos"} user_last_name={"Rodriguez"} />
@@ -49,19 +73,24 @@ export default function Record() {
         <section className="record-title">
           <h2 className="title-record">Historial de pacientes</h2>
           <h4 className="subtitle">
-            Consulta historial clinico de cada paciente
+            Consulta historial clínico de cada paciente
           </h4>
         </section>
         <section className="search">
           <div className="search-input-wrapper">
             <input
               placeholder="Buscar paciente..."
-              value={patient}
-              onChange={(e) => setPatient(e.target.value)}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
             />
           </div>
           <div className="filter-dropdown">
-            <DropDown />
+            <DropDown
+              options={filterOptions}
+              value={filter}
+              onChange={(val) => setFilter(val === filter ? "" : val)}
+              placeholder="Ordenar por..."
+            />
           </div>
         </section>
         <section className="record-patients-container">
@@ -69,22 +98,28 @@ export default function Record() {
             <div className="record-header">
               <span className="record-header-title">Lista de pacientes</span>
               <span className="record-header-counter">
-                {patients.length} registros
+                {visiblePatients.length} de {patients.length} registros
               </span>
             </div>
             <div className="record-body">
               <div className="record-items">
-                {patients.map((p) => (
-                  <PatientItem
-                    key={p.id}
-                    name_patient={p.name_patient}
-                    last_name_patient={p.last_name_patient}
-                    second_last_name_patiente={p.second_last_name_patiente}
-                    birth_date={p.birth_date}
-                    last_visit_date={p.last_visit_date}
-                    onClick={null}
-                  />
-                ))}
+                {visiblePatients.length > 0 ? (
+                  visiblePatients.map((p) => (
+                    <PatientItem
+                      key={p.id}
+                      name_patient={p.name_patient}
+                      last_name_patient={p.last_name_patient}
+                      second_last_name_patiente={p.second_last_name_patiente}
+                      birth_date={p.birth_date}
+                      last_visit_date={p.last_visit_date}
+                      onClick={() => navigate(`/patient/${p.id}`)}
+                    />
+                  ))
+                ) : (
+                  <p className="record-empty">
+                    No se encontraron pacientes con ese nombre.
+                  </p>
+                )}
               </div>
             </div>
           </div>
