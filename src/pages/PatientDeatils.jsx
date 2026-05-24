@@ -9,6 +9,19 @@ import { calculateYearsAsPatient } from "../hooks/CalculateYearsAsPatient";
 import { formatDateDetail } from "../hooks/FormatDateDetail";
 import "../styles/patientDetails.css";
 
+const conditionMeta = {
+  hipertenso:  { label: "Hipertenso",   cls: "condition-hipertenso" },
+  diabetico:   { label: "Diabético",    cls: "condition-diabetico"  },
+  asmatico:    { label: "Asmático",     cls: "condition-asmatico"   },
+  cardiaco:    { label: "Cardíaco",     cls: "condition-cardiaco"   },
+  renal:       { label: "Renal crónico",cls: "condition-renal"      },
+  artritis:    { label: "Artritis",     cls: "condition-artritis"   },
+  tiroides:    { label: "Tiroides",     cls: "condition-tiroides"   },
+  anemico:     { label: "Anémico",      cls: "condition-anemico"    },
+  alergico:    { label: "Alérgico",     cls: "condition-alergico"   },
+  otro:        { label: "Otro",         cls: "condition-otro"       },
+};
+
 const patientsData = [
   {
     id: 1,
@@ -17,6 +30,7 @@ const patientsData = [
     second_last_name_patiente: "Herrera",
     birth_date: "1990-03-15",
     registration_date: "2021-06-10",
+    conditions: ["hipertenso"],
     consultations: [
       {
         id: 1,
@@ -62,6 +76,7 @@ const patientsData = [
     second_last_name_patiente: "Vega",
     birth_date: "1985-07-22",
     registration_date: "2023-03-05",
+    conditions: ["otro"],
     consultations: [
       {
         id: 1,
@@ -93,6 +108,7 @@ const patientsData = [
     second_last_name_patiente: "Ruiz",
     birth_date: "2001-11-08",
     registration_date: "2024-08-22",
+    conditions: ["asmatico"],
     consultations: [
       {
         id: 1,
@@ -117,6 +133,7 @@ const patientsData = [
     second_last_name_patiente: "Castro",
     birth_date: "1998-01-30",
     registration_date: "2022-11-15",
+    conditions: ["anemico", "alergico"],
     consultations: [
       {
         id: 1,
@@ -228,6 +245,18 @@ export default function PatientDeatils() {
                 {age} años
               </span>
             </div>
+            {patient.conditions?.length > 0 && (
+              <div className="condition-tags">
+                {patient.conditions.map((key) => {
+                  const meta = conditionMeta[key] ?? conditionMeta.otro;
+                  return (
+                    <span key={key} className={`condition-tag ${meta.cls}`}>
+                      {meta.label}
+                    </span>
+                  );
+                })}
+              </div>
+            )}
           </div>
           <div className="details-btn-group">
             <button
