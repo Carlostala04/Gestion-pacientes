@@ -95,9 +95,9 @@ export default function EditConsulta() {
           <DatePicker
             selected={nextDate}
             onChange={(e) => setNextDate(e)}
-            showTimeSelect
-            dateFormat={"Pp"}
-            placeholderText="Seleccione fecha y hora"
+            dateFormat={"dd/MM/yyyy"}
+            placeholderText="Seleccione una fecha"
+            minDate={new Date()}
             isClearable
           />
           <label>Prescripción (opcional)</label>

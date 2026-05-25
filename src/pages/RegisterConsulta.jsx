@@ -47,13 +47,13 @@ export default function RegisterConsulta() {
             value={observations}
             onChange={(e) => setObservatios(e.target.value)}
           />
-          <label>Proxima cita</label>
+          <label>Próxima cita</label>
           <DatePicker
             selected={nextDate}
             onChange={(e) => setNextDate(e)}
-            showTimeSelect
-            dateFormat={"Pp"}
-            placeholderText="Seleccione fecha y hora"
+            dateFormat={"dd/MM/yyyy"}
+            placeholderText="Seleccione una fecha"
+            minDate={new Date()}
             isClearable
           />
           <label>Prescripción (opcional)</label>
