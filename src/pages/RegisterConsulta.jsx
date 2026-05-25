@@ -15,6 +15,10 @@ export default function RegisterConsulta() {
   const [prescripcion, setPrescripcion] = useState("");
   const [typeDate, setTypeDate] = useState("");
   const [nextDate, setNextDate] = useState(null);
+  const [horaConsulta, setHoraConsulta] = useState(() => {
+    const now = new Date();
+    return now.toTimeString().slice(0, 5);
+  });
   const today = new Date().toLocaleDateString("es-NI", {
     dateStyle: "long",
   });
@@ -29,6 +33,13 @@ export default function RegisterConsulta() {
         <Form>
           <label>Dia de consulta (Hoy)</label>
           <input disabled placeholder={today} />
+          <label>Hora de consulta</label>
+          <input
+            type="time"
+            value={horaConsulta}
+            onChange={(e) => setHoraConsulta(e.target.value)}
+            disabled
+          />
           <label>Diagnostico</label>
           <input
             type="text"
@@ -47,15 +58,7 @@ export default function RegisterConsulta() {
             value={observations}
             onChange={(e) => setObservatios(e.target.value)}
           />
-          <label>Próxima cita</label>
-          <DatePicker
-            selected={nextDate}
-            onChange={(e) => setNextDate(e)}
-            dateFormat={"dd/MM/yyyy"}
-            placeholderText="Seleccione una fecha"
-            minDate={new Date()}
-            isClearable
-          />
+          
           <label>Prescripción (opcional)</label>
           <textarea
             placeholder="Medicamentos, dosis, indicaciones..."
@@ -79,6 +82,18 @@ export default function RegisterConsulta() {
               Imprimir prescripción
             </button>
           )}
+          <label>Próxima cita</label>
+          <DatePicker
+            selected={nextDate}
+            onChange={(e) => setNextDate(e)}
+            showTimeSelect
+            timeFormat="HH:mm"
+            timeIntervals={15}
+            dateFormat="dd/MM/yyyy HH:mm"
+            placeholderText="Seleccione fecha y hora"
+            minDate={new Date()}
+            isClearable
+          />
           <label>Tipo de consulta</label>
           <DropDown
             placeholder="Escoja el tipo de consulta de la proxima cita"

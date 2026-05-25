@@ -49,6 +49,7 @@ export default function EditConsulta() {
   const [prescripcion, setPrescripcion] = useState(consulta.prescripcion ?? "");
   const [typeDate, setTypeDate] = useState(consulta.type);
   const [nextDate, setNextDate] = useState(consulta.nextDate);
+  const [horaConsulta, setHoraConsulta] = useState(consulta.time ?? "");
 
   const observationsRef = useRef(null);
   const prescripcionRef = useRef(null);
@@ -72,6 +73,13 @@ export default function EditConsulta() {
         <Form>
           <label>Día de consulta</label>
           <input disabled placeholder={consultaDate} />
+          <label>Hora de consulta</label>
+          <input
+            type="time"
+            value={horaConsulta}
+            onChange={(e) => setHoraConsulta(e.target.value)}
+            disabled
+          />
           <label>Diagnóstico</label>
           <input
             type="text"
@@ -91,15 +99,7 @@ export default function EditConsulta() {
             value={observations}
             onChange={(e) => setObservations(e.target.value)}
           />
-          <label>Próxima cita</label>
-          <DatePicker
-            selected={nextDate}
-            onChange={(e) => setNextDate(e)}
-            dateFormat={"dd/MM/yyyy"}
-            placeholderText="Seleccione una fecha"
-            minDate={new Date()}
-            isClearable
-          />
+          
           <label>Prescripción (opcional)</label>
           <textarea
             ref={prescripcionRef}
@@ -124,6 +124,18 @@ export default function EditConsulta() {
               Imprimir prescripción
             </button>
           )}
+          <label>Próxima cita</label>
+          <DatePicker
+            selected={nextDate}
+            onChange={(e) => setNextDate(e)}
+            showTimeSelect
+            timeFormat="HH:mm"
+            timeIntervals={15}
+            dateFormat="dd/MM/yyyy HH:mm"
+            placeholderText="Seleccione fecha y hora"
+            minDate={new Date()}
+            isClearable
+          />
           <label>Tipo de consulta</label>
           <DropDown
             placeholder="Escoja el tipo de consulta"
