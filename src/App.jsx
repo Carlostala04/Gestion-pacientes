@@ -9,6 +9,7 @@ import EditPatient from './pages/EditPatient'
 import EditConsulta from './pages/EditConsulta'
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
+import User from "./pages/User";
 function App() {
   return (
     <Routes>
@@ -21,6 +22,7 @@ function App() {
       <Route path="/patient/:id/nueva-consulta" element={<RegisterConsulta/>}/>
       <Route path="/patient/:id/editar" element={<EditPatient/>}/>
       <Route path="/patient/:id/consulta/:consultaId/editar" element={<EditConsulta/>}/>
+      <Route path="/user" element={<User />}/>
     </Routes>
   );
 }
