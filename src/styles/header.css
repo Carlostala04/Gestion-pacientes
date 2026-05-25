@@ -59,12 +59,62 @@ header {
 }
 
 /* ── User ──────────────────────────────────── */
+.user-wrapper {
+  position: relative;
+  min-width: 160px;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .user {
   display: flex;
   align-items: center;
   gap: 12px;
-  min-width: 160px;
-  justify-content: flex-end;
+  cursor: pointer;
+  user-select: none;
+}
+
+.user-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  min-width: 168px;
+  z-index: 200;
+  overflow: hidden;
+  animation: menu-in 0.15s ease;
+}
+
+@keyframes menu-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.user-menu-item {
+  display: block;
+  padding: 11px 16px;
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #2d2d2d;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.user-menu-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.user-menu-item--danger {
+  color: #d63031;
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.user-menu-item--danger:hover {
+  background: rgba(214, 48, 49, 0.07);
 }
 
 .bubble {
@@ -129,7 +179,7 @@ header {
     padding-bottom: 4px;
   }
 
-  .user {
+  .user-wrapper {
     min-width: auto;
   }
 
