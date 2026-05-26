@@ -56,6 +56,7 @@ export default function User() {
   const [lastName, setLastName] = useState("");
   const [specialtyId, setSpecialtyId] = useState("");
   const [specialties, setSpecialties] = useState([]);
+  const [customSpecialty, setCustomSpecialty] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -86,7 +87,10 @@ export default function User() {
     loadData();
   }, []);
 
-  const displaySpecialty = specialties.find((s) => String(s.id) === specialtyId)?.nombre ?? "";
+  const displaySpecialty =
+    specialtyId === "otra"
+      ? customSpecialty || "Otra"
+      : specialties.find((s) => String(s.id) === specialtyId)?.nombre ?? "";
   const initials = (name.trim()[0] || "") + (lastName.trim()[0] || "");
 
   async function handleSubmit(e) {
@@ -97,9 +101,25 @@ export default function User() {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) { setError("No hay sesión activa."); setSaving(false); return; }
 
+    let resolvedSpecialtyId = Number(specialtyId) || null;
+
+    if (specialtyId === "otra") {
+      if (!customSpecialty.trim()) { setError("Escribe el nombre de la especialidad."); setSaving(false); return; }
+      const { data: newSpec, error: specError } = await supabase
+        .from("especialidad")
+        .insert({ nombre: customSpecialty.trim() })
+        .select("id")
+        .single();
+      if (specError) { setError("Error al guardar la especialidad."); setSaving(false); return; }
+      resolvedSpecialtyId = newSpec.id;
+      setSpecialties((prev) => [...prev, { id: newSpec.id, nombre: customSpecialty.trim() }]);
+      setSpecialtyId(String(newSpec.id));
+      setCustomSpecialty("");
+    }
+
     const { error: doctorError } = await supabase
       .from("doctor")
-      .update({ nombre: name, apellido: lastName, id_especialidad: Number(specialtyId) || null })
+      .update({ nombre: name, apellido: lastName, id_especialidad: resolvedSpecialtyId })
       .eq("id", user.id);
 
     if (doctorError) { setError("Error al guardar los datos."); setSaving(false); return; }
@@ -174,13 +194,24 @@ export default function User() {
                 <select
                   id="edit-specialty"
                   value={specialtyId}
-                  onChange={(e) => setSpecialtyId(e.target.value)}
+                  onChange={(e) => { setSpecialtyId(e.target.value); setCustomSpecialty(""); }}
                 >
                   <option value="" disabled>Selecciona una especialidad</option>
                   {specialties.map((s) => (
                     <option key={s.id} value={String(s.id)}>{s.nombre}</option>
                   ))}
+                  <option value="otra">Otra...</option>
                 </select>
+                {specialtyId === "otra" && (
+                  <input
+                    type="text"
+                    value={customSpecialty}
+                    onChange={(e) => setCustomSpecialty(e.target.value)}
+                    placeholder="Escribe la especialidad"
+                    autoFocus
+                    style={{ marginTop: "0.5rem" }}
+                  />
+                )}
               </div>
               <div className="field">
                 <label htmlFor="edit-email">Correo electrónico</label>
