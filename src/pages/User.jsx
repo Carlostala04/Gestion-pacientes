@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
+import { supabase } from "../lib/supabase";
 import "../styles/login.css";
 import "../styles/user.css";
 
@@ -49,27 +50,76 @@ function PasswordStrength({ password }) {
   );
 }
 
-const SPECIALTIES = [
-  "Medicina General", "Pediatría", "Cardiología", "Dermatología",
-  "Ginecología", "Neurología", "Oftalmología", "Ortopedia", "Psiquiatría", "Otra",
-];
-
 export default function User() {
   const navigate = useNavigate();
-  const [name, setName] = useState("Carlos");
-  const [lastName, setLastName] = useState("Rodriguez");
-  const [specialty, setSpecialty] = useState("Medicina General");
-  const [customSpecialty, setCustomSpecialty] = useState("");
-  const [email, setEmail] = useState("carlos@clinica.com");
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [specialtyId, setSpecialtyId] = useState("");
+  const [specialties, setSpecialties] = useState([]);
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
 
+  useEffect(() => {
+    async function loadData() {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      setEmail(user.email ?? "");
+
+      const [doctorRes, specialtiesRes] = await Promise.all([
+        supabase.from("doctor").select("nombre, apellido, id_especialidad").eq("id", user.id).single(),
+        supabase.from("especialidad").select("id, nombre"),
+      ]);
+
+      if (doctorRes.data) {
+        setName(doctorRes.data.nombre ?? "");
+        setLastName(doctorRes.data.apellido ?? "");
+        setSpecialtyId(String(doctorRes.data.id_especialidad ?? ""));
+      }
+      if (specialtiesRes.data) setSpecialties(specialtiesRes.data);
+      setLoading(false);
+    }
+    loadData();
+  }, []);
+
+  const displaySpecialty = specialties.find((s) => String(s.id) === specialtyId)?.nombre ?? "";
   const initials = (name.trim()[0] || "") + (lastName.trim()[0] || "");
-  const displaySpecialty = specialty === "Otra" ? customSpecialty : specialty;
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+    setError("");
+    setSaving(true);
+
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) { setError("No hay sesión activa."); setSaving(false); return; }
+
+    const { error: doctorError } = await supabase
+      .from("doctor")
+      .update({ nombre: name, apellido: lastName, id_especialidad: Number(specialtyId) || null })
+      .eq("id", user.id);
+
+    if (doctorError) { setError("Error al guardar los datos."); setSaving(false); return; }
+
+    if (password) {
+      const { error: authError } = await supabase.auth.updateUser({ password });
+      if (authError) { setError("Error al cambiar la contraseña."); setSaving(false); return; }
+    }
+
+    setSaving(false);
     navigate(-1);
+  }
+
+  if (loading) {
+    return (
+      <>
+        <Header user_name="" user_last_name="" />
+        <p style={{ padding: "2rem" }}>Cargando perfil...</p>
+      </>
+    );
   }
 
   return (
@@ -123,24 +173,14 @@ export default function User() {
                 <label htmlFor="edit-specialty">Especialidad</label>
                 <select
                   id="edit-specialty"
-                  value={specialty}
-                  onChange={(e) => setSpecialty(e.target.value)}
+                  value={specialtyId}
+                  onChange={(e) => setSpecialtyId(e.target.value)}
                 >
                   <option value="" disabled>Selecciona una especialidad</option>
-                  {SPECIALTIES.map((s) => (
-                    <option key={s} value={s}>{s}</option>
+                  {specialties.map((s) => (
+                    <option key={s.id} value={String(s.id)}>{s.nombre}</option>
                   ))}
                 </select>
-                {specialty === "Otra" && (
-                  <input
-                    type="text"
-                    value={customSpecialty}
-                    onChange={(e) => setCustomSpecialty(e.target.value)}
-                    placeholder="Escribe tu especialidad"
-                    autoComplete="off"
-                    style={{ marginTop: "var(--space-2)" }}
-                  />
-                )}
               </div>
               <div className="field">
                 <label htmlFor="edit-email">Correo electrónico</label>
@@ -148,8 +188,7 @@ export default function User() {
                   id="edit-email"
                   type="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="doctor@clinica.com"
+                  disabled
                   autoComplete="email"
                 />
               </div>
@@ -179,9 +218,10 @@ export default function User() {
                 <PasswordStrength password={password} />
               </div>
             </div>
+            {error && <p style={{ color: "red", fontSize: "0.85rem", marginTop: "0.5rem" }}>{error}</p>}
             <div className="form-actions">
-              <button type="submit" className="btn-primary">
-                Guardar cambios
+              <button type="submit" className="btn-primary" disabled={saving}>
+                {saving ? "Guardando..." : "Guardar cambios"}
               </button>
               <button
                 type="button"

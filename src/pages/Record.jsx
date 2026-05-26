@@ -5,40 +5,8 @@ import DropDown from "../components/DropDown";
 import PatientItem from "../components/PatientItem";
 import "../styles/record.css";
 import { useNavigate } from "react-router-dom";
-const patients = [
-  {
-    id: 1,
-    name_patient: "Carlos",
-    last_name_patient: "López",
-    second_last_name_patiente: "Herrera",
-    birth_date: "1990-03-15",
-    last_visit_date: "2026-04-10",
-  },
-  {
-    id: 2,
-    name_patient: "María",
-    last_name_patient: "González",
-    second_last_name_patiente: "Vega",
-    birth_date: "1985-07-22",
-    last_visit_date: "2026-05-01",
-  },
-  {
-    id: 3,
-    name_patient: "Andrés",
-    last_name_patient: "Martínez",
-    second_last_name_patiente: "Ruiz",
-    birth_date: "2001-11-08",
-    last_visit_date: "2026-03-18",
-  },
-  {
-    id: 4,
-    name_patient: "Sofía",
-    last_name_patient: "Ramírez",
-    second_last_name_patiente: "Castro",
-    birth_date: "1998-01-30",
-    last_visit_date: "2026-05-12",
-  },
-];
+import { usePacientes } from "../hooks/usePacientes";
+import { useDoctor } from "../hooks/useDoctor";
 
 const filterOptions = [
   { value: "recientes", label: "Visita más reciente" },
@@ -51,8 +19,10 @@ export default function Record() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("");
   const navigate = useNavigate();
+  const doctor = useDoctor();
+  const { pacientes, loading } = usePacientes();
 
-  const visiblePatients = patients
+  const visiblePatients = pacientes
     .filter((p) => {
       if (!search.trim()) return true;
       const full = `${p.name_patient} ${p.last_name_patient} ${p.second_last_name_patiente}`.toLowerCase();
@@ -61,14 +31,15 @@ export default function Record() {
     .sort((a, b) => {
       if (filter === "az") return a.name_patient.localeCompare(b.name_patient, "es");
       if (filter === "za") return b.name_patient.localeCompare(a.name_patient, "es");
-      if (filter === "recientes") return new Date(b.last_visit_date) - new Date(a.last_visit_date);
+      if (filter === "recientes")
+        return new Date(b.last_visit_date) - new Date(a.last_visit_date);
       if (filter === "antiguos") return a.id - b.id;
       return 0;
     });
 
   return (
     <>
-      <Header user_name={"Carlos"} user_last_name={"Rodriguez"} />
+      <Header user_name={doctor.nombre} user_last_name={doctor.apellido} />
       <div className="record-wrapper">
         <section className="record-title">
           <h2 className="title-record">Historial de pacientes</h2>
@@ -98,12 +69,14 @@ export default function Record() {
             <div className="record-header">
               <span className="record-header-title">Lista de pacientes</span>
               <span className="record-header-counter">
-                {visiblePatients.length} de {patients.length} registros
+                {visiblePatients.length} de {pacientes.length} registros
               </span>
             </div>
             <div className="record-body">
               <div className="record-items">
-                {visiblePatients.length > 0 ? (
+                {loading ? (
+                  <p className="record-empty">Cargando pacientes...</p>
+                ) : visiblePatients.length > 0 ? (
                   visiblePatients.map((p) => (
                     <PatientItem
                       key={p.id}

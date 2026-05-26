@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { supabase } from "../lib/supabase";
 import "../styles/login.css";
 
 function ArrowLeftIcon() {
@@ -22,10 +23,18 @@ function MailSentIcon() {
 
 function FormStep({ onSend }) {
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email.trim()) onSend(email.trim());
+    if (!email.trim()) return;
+    setError("");
+    setLoading(true);
+    const { error: resetError } = await supabase.auth.resetPasswordForEmail(email.trim());
+    setLoading(false);
+    if (resetError) { setError("No se pudo enviar el correo. Verifica el email."); return; }
+    onSend(email.trim());
   };
 
   return (
@@ -47,9 +56,10 @@ function FormStep({ onSend }) {
           />
         </div>
       </div>
+      {error && <p style={{ color: "red", fontSize: "0.85rem" }}>{error}</p>}
       <div className="form-actions">
-        <button type="submit" className="btn-primary">
-          Enviar enlace
+        <button type="submit" className="btn-primary" disabled={loading}>
+          {loading ? "Enviando..." : "Enviar enlace"}
         </button>
         <Link to="/" className="back-to-login">
           <ArrowLeftIcon />

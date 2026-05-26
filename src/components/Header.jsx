@@ -4,13 +4,14 @@ import Button from "./Button";
 import Home from "../assets/favicon/HomeIcon";
 import Plus from "../assets/favicon/PlusIcon";
 import Paper from "../assets/favicon/PaperIcon";
+import { supabase } from "../lib/supabase";
 import "../styles/header.css";
 
 export default function Header({ user_name, user_last_name }) {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const wrapperRef = useRef(null);
-  const user_icon_initials = user_name.trim()[0] + user_last_name.trim()[0];
+  const user_icon_initials = (user_name?.trim()[0] ?? "") + (user_last_name?.trim()[0] ?? "");
 
   useEffect(() => {
     function handleClickOutside(e) {
@@ -46,7 +47,7 @@ export default function Header({ user_name, user_last_name }) {
           <div className="user" onClick={() => setMenuOpen((o) => !o)}>
             <h3 className="bubble">{user_icon_initials.toUpperCase()}</h3>
             <h4 className="user-name">
-              DR. {`${user_name} ${user_last_name.trim()[0].toUpperCase()}`}
+              DR. {`${user_name} ${user_last_name?.trim()[0]?.toUpperCase() ?? ""}`}
             </h4>
           </div>
           {menuOpen && (
@@ -59,7 +60,11 @@ export default function Header({ user_name, user_last_name }) {
               </span>
               <span
                 className="user-menu-item user-menu-item--danger"
-                onClick={() => { navigate("/"); setMenuOpen(false); }}
+                onClick={async () => {
+                  await supabase.auth.signOut();
+                  setMenuOpen(false);
+                  navigate("/");
+                }}
               >
                 Cerrar sesión
               </span>
