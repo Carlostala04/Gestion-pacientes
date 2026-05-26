@@ -351,6 +351,53 @@ button.timeline-edit-btn:hover {
   line-height: 1.55;
 }
 
+.timeline-prescripcion {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 6px;
+  padding: 8px 10px;
+  background: #f0faf7;
+  border-left: 3px solid var(--color-primary);
+  border-radius: 0 6px 6px 0;
+}
+
+.timeline-prescripcion-label {
+  font-family: var(--font-brand, 'Poppins', sans-serif);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  background: #d4f0ea;
+  padding: 1px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  margin-top: 1px;
+}
+
+.timeline-prescripcion p {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  color: var(--color-text-primary);
+  margin: 0;
+  line-height: 1.55;
+}
+
+.timeline-next-appointment {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-primary);
+}
+
+.timeline-next-appointment svg {
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
 /* ── Responsive ──────────────────────────────── */
 @media (max-width: 1024px) {
   .details-wrapper {
