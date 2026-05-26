@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../components/Header";
-import { useState } from "react";
 import DropDown from "../components/DropDown";
 import PatientItem from "../components/PatientItem";
+import BackupModal from "../components/BackupModal";
 import "../styles/record.css";
 import { useNavigate } from "react-router-dom";
 import { usePacientes } from "../hooks/usePacientes";
@@ -18,6 +18,7 @@ const filterOptions = [
 export default function Record() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("");
+  const [showBackup, setShowBackup] = useState(false);
   const navigate = useNavigate();
   const doctor = useDoctor();
   const { pacientes, loading } = usePacientes();
@@ -42,10 +43,20 @@ export default function Record() {
       <Header user_name={doctor.nombre} user_last_name={doctor.apellido} />
       <div className="record-wrapper">
         <section className="record-title">
-          <h2 className="title-record">Historial de pacientes</h2>
-          <h4 className="subtitle">
-            Consulta historial clínico de cada paciente
-          </h4>
+          <div className="record-title-row">
+            <div>
+              <h2 className="title-record">Historial de pacientes</h2>
+              <h4 className="subtitle">Consulta historial clínico de cada paciente</h4>
+            </div>
+            <button className="backup-trigger-btn" onClick={() => setShowBackup(true)}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              Crear respaldo
+            </button>
+          </div>
         </section>
         <section className="search">
           <div className="search-input-wrapper">
@@ -101,6 +112,8 @@ export default function Record() {
       <footer>
         Haz clic en un paciente para ver su historial clínico detallado
       </footer>
+
+      {showBackup && <BackupModal onClose={() => setShowBackup(false)} />}
     </>
   );
 }
