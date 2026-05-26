@@ -138,6 +138,7 @@ function RegisterFields() {
   const [email, setEmail] = useState("");
   const [specialtyId, setSpecialtyId] = useState("");
   const [specialties, setSpecialties] = useState([]);
+  const [customSpecialty, setCustomSpecialty] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -152,6 +153,19 @@ function RegisterFields() {
     setError("");
     setLoading(true);
 
+    let resolvedSpecialtyId = Number(specialtyId) || null;
+
+    if (specialtyId === "otra") {
+      if (!customSpecialty.trim()) { setError("Escribe el nombre de la especialidad."); setLoading(false); return; }
+      const { data: newSpec, error: specError } = await supabase
+        .from("especialidad")
+        .insert({ nombre: customSpecialty.trim() })
+        .select("id")
+        .single();
+      if (specError) { setError("Error al guardar la especialidad."); setLoading(false); return; }
+      resolvedSpecialtyId = newSpec.id;
+    }
+
     const { error } = await supabase.auth.signUp({
       email,
       password,
@@ -159,7 +173,7 @@ function RegisterFields() {
         data: {
           nombre,
           apellido,
-          id_especialidad: Number(specialtyId),
+          id_especialidad: resolvedSpecialtyId,
         },
       },
     });
@@ -188,12 +202,23 @@ function RegisterFields() {
         </div>
         <div className="field">
           <label htmlFor="reg-specialty">Especialidad</label>
-          <select id="reg-specialty" value={specialtyId} onChange={(e) => setSpecialtyId(e.target.value)} required>
+          <select id="reg-specialty" value={specialtyId} onChange={(e) => { setSpecialtyId(e.target.value); setCustomSpecialty(""); }} required>
             <option value="" disabled>Selecciona una especialidad</option>
             {specialties.map((s) => (
               <option key={s.id} value={s.id}>{s.nombre}</option>
             ))}
+            <option value="otra">Otra...</option>
           </select>
+          {specialtyId === "otra" && (
+            <input
+              type="text"
+              value={customSpecialty}
+              onChange={(e) => setCustomSpecialty(e.target.value)}
+              placeholder="Escribe la especialidad"
+              autoFocus
+              style={{ marginTop: "0.5rem" }}
+            />
+          )}
         </div>
         <div className="field">
           <label htmlFor="reg-email">Correo electrónico</label>
