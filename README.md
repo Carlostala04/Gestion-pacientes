@@ -6,7 +6,7 @@ Aplicación web para la gestión integral de pacientes en consultorios médicos.
 
 ## Stack tecnológico
 
-![Skills](https://skillicons.dev/icons?i=react,vite,js,css,eslint,supabase)
+![Skills](https://skillicons.dev/icons?i=react,vite,js,css,supabase)
 
 | Categoría | Tecnología |
 | --------- | --------- |
