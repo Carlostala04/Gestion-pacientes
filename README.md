@@ -1,4 +1,7 @@
-# MediRecord — Sistema de Gestión de Clínica ![logo del proyecto](/public/icon.ico)
+# MediRecord — Sistema de Gestión de Clínica 
+<p align="center">
+  <img src="/public/icon.ico" width="400" alt="Descripción de la imagen">
+</p>
 
 Aplicación de **escritorio** para la gestión integral de pacientes en consultorios médicos. Permite a los profesionales de la salud registrar pacientes, llevar historial de consultas, visualizar la agenda diaria, exportar expedientes en PDF y monitorear estadísticas clave desde un panel centralizado.
 
