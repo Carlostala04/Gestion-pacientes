@@ -1,20 +1,22 @@
 # MediRecord — Sistema de Gestión de Clínica
 
-Aplicación web para la gestión integral de pacientes en consultorios médicos. Permite a los profesionales de la salud registrar pacientes, llevar historial de consultas, visualizar la agenda diaria y monitorear estadísticas clave desde un panel centralizado.
+Aplicación de **escritorio** para la gestión integral de pacientes en consultorios médicos. Permite a los profesionales de la salud registrar pacientes, llevar historial de consultas, visualizar la agenda diaria, exportar expedientes en PDF y monitorear estadísticas clave desde un panel centralizado.
 
 ---
 
 ## Stack tecnológico
 
-![Skills](https://skillicons.dev/icons?i=react,vite,js,css,supabase,electron)
+![Skills](https://skillicons.dev/icons?i=react,vite,js,ts,css,supabase,electron)
 
 | Categoría | Tecnología |
 | --------- | --------- |
 | UI Framework | React 19 |
 | Routing | React Router DOM 6 |
-| Build Tool | Vite |
+| Build Tool | Vite 8 (Rolldown) |
 | Backend / Base de datos | Supabase (PostgreSQL) |
 | Autenticación | Supabase Auth |
+| Desktop | Electron 42 + electron-builder |
+| Generación de PDF | @react-pdf/renderer |
 | Selector de fecha | React Calendar / React DatePicker |
 | Optimización | React Compiler (Babel preset) |
 | Estilos | CSS vanilla con variables globales |
@@ -51,6 +53,17 @@ Aplicación web para la gestión integral de pacientes en consultorios médicos.
 - Edición de consultas existentes.
 - Impresión de prescripciones en formato clínico.
 
+### Exportación de expedientes en PDF
+
+- Generación de expediente completo del paciente en formato PDF clínico.
+- Incluye datos personales, condiciones crónicas, historial de consultas y prescripciones.
+- Descarga directa desde el perfil del paciente.
+
+### Backup y exportación de datos
+
+- Modal de backup para exportar datos del consultorio.
+- Exportación en formato PDF lista para archivar o imprimir.
+
 ### Perfil del doctor
 
 - Edición de nombre, apellido y especialidad.
@@ -58,20 +71,32 @@ Aplicación web para la gestión integral de pacientes en consultorios médicos.
 
 ---
 
+## Aplicación de escritorio (Electron)
+
+MediRecord corre como aplicación nativa de Windows gracias a Electron 42.
+
+- Ventana optimizada: 1280×800 (mínimo 960×600).
+- Barra de menú oculta para una interfaz limpia.
+- Instalador NSIS con directorio de instalación personalizable.
+- Icono de aplicación incluido (`public/icon.ico`).
+
+---
+
 ## Estructura del proyecto
 
-```
+```text
 src/
-├── components/       # Componentes reutilizables
+├── components/           # Componentes reutilizables
+│   ├── BackupModal.jsx   # Modal de backup y exportación
 │   ├── Button.jsx
 │   ├── CardList.jsx
 │   ├── DropDown.jsx
 │   ├── Form.jsx
 │   ├── Header.jsx
 │   ├── InfoCards.jsx
-│   ├── LoginForm.jsx
-│   └── PatientItem.jsx
-├── pages/            # Vistas principales
+│   ├── PatientItem.jsx
+│   └── PatientPDF.jsx    # Generador de expediente PDF
+├── pages/                # Vistas principales
 │   ├── Home.jsx
 │   ├── Login.jsx
 │   ├── Register.jsx
@@ -82,7 +107,7 @@ src/
 │   ├── EditConsulta.jsx
 │   ├── ForgotPassword.jsx
 │   └── User.jsx
-├── hooks/            # Custom hooks
+├── hooks/                # Custom hooks
 │   ├── home/
 │   │   ├── useAgendaHoy.js
 │   │   ├── usePacientesRecientes.js
@@ -97,10 +122,15 @@ src/
 │   ├── FormatDateDetail.js
 │   ├── ImprimirPrescripcion.js
 │   └── Reloj.js
+├── constants/
+│   └── Colors.ts         # Sistema de colores de la app
 ├── lib/
-│   └── supabase.js   # Cliente de Supabase
-├── styles/           # CSS por componente y página
-└── assets/           # Íconos SVG
+│   ├── backup.js         # Lógica de backup y exportación PDF
+│   └── supabase.js       # Cliente de Supabase
+├── styles/               # CSS por componente y página
+└── assets/               # Íconos SVG y recursos visuales
+electron/
+└── main.js               # Proceso principal de Electron
 ```
 
 ---
@@ -111,12 +141,20 @@ src/
 # Instalar dependencias
 npm install
 
-# Iniciar servidor de desarrollo
+# Iniciar servidor de desarrollo (web)
 npm run dev
 
-# Generar build de producción
+# Iniciar app en modo escritorio (Electron + Vite)
+npm run electron:dev
+
+# Generar build de producción (instalador Windows)
+npm run electron:build
+
+# Generar build web
 npm run build
 ```
+
+El instalador se genera en la carpeta `release/`.
 
 ### Variables de entorno
 
@@ -139,4 +177,4 @@ Médicos y personal administrativo de consultorios o clínicas pequeñas que nec
 
 ## Estado del proyecto
 
-> En desarrollo activo con integración completa a Supabase como backend y base de datos.
+> En desarrollo activo con integración completa a Supabase como backend y base de datos, y distribución como aplicación de escritorio nativa para Windows.
