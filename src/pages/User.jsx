@@ -105,16 +105,38 @@ export default function User() {
 
     if (specialtyId === "otra") {
       if (!customSpecialty.trim()) { setError("Escribe el nombre de la especialidad."); setSaving(false); return; }
-      const { data: newSpec, error: specError } = await supabase
+
+      const trimmed = customSpecialty.trim();
+
+      const { data: existing } = await supabase
         .from("especialidad")
-        .insert({ nombre: customSpecialty.trim() })
-        .select("id")
-        .single();
-      if (specError) { setError("Error al guardar la especialidad."); setSaving(false); return; }
-      resolvedSpecialtyId = newSpec.id;
-      setSpecialties((prev) => [...prev, { id: newSpec.id, nombre: customSpecialty.trim() }]);
-      setSpecialtyId(String(newSpec.id));
-      setCustomSpecialty("");
+        .select("id, nombre")
+        .ilike("nombre", trimmed)
+        .maybeSingle();
+
+      if (existing) {
+        resolvedSpecialtyId = existing.id;
+        setSpecialties((prev) =>
+          prev.some((s) => s.id === existing.id) ? prev : [...prev, existing]
+        );
+        setSpecialtyId(String(existing.id));
+        setCustomSpecialty("");
+      } else {
+        const { data: newSpec, error: specError } = await supabase
+          .from("especialidad")
+          .insert({ nombre: trimmed })
+          .select("id")
+          .single();
+        if (specError) {
+          setError(`Error al guardar la especialidad: ${specError.message}`);
+          setSaving(false);
+          return;
+        }
+        resolvedSpecialtyId = newSpec.id;
+        setSpecialties((prev) => [...prev, { id: newSpec.id, nombre: trimmed }]);
+        setSpecialtyId(String(newSpec.id));
+        setCustomSpecialty("");
+      }
     }
 
     const { error: doctorError } = await supabase

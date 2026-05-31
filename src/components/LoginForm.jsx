@@ -157,13 +157,26 @@ function RegisterFields() {
 
     if (specialtyId === "otra") {
       if (!customSpecialty.trim()) { setError("Escribe el nombre de la especialidad."); setLoading(false); return; }
-      const { data: newSpec, error: specError } = await supabase
+
+      const trimmed = customSpecialty.trim();
+
+      const { data: existing } = await supabase
         .from("especialidad")
-        .insert({ nombre: customSpecialty.trim() })
         .select("id")
-        .single();
-      if (specError) { setError("Error al guardar la especialidad."); setLoading(false); return; }
-      resolvedSpecialtyId = newSpec.id;
+        .ilike("nombre", trimmed)
+        .maybeSingle();
+
+      if (existing) {
+        resolvedSpecialtyId = existing.id;
+      } else {
+        const { data: newSpec, error: specError } = await supabase
+          .from("especialidad")
+          .insert({ nombre: trimmed })
+          .select("id")
+          .single();
+        if (specError) { setError(`Error al guardar la especialidad: ${specError.message}`); setLoading(false); return; }
+        resolvedSpecialtyId = newSpec.id;
+      }
     }
 
     const { error } = await supabase.auth.signUp({
