@@ -80,9 +80,13 @@ export default function RegisterConsulta() {
           <label>Hora de consulta</label>
           <input type="time" value={horaConsulta} disabled />
           <label>Diagnóstico</label>
-          <input
-            type="text"
+          <textarea
             placeholder="Diagnóstico principal"
+            rows={1}
+            onInput={(e) => {
+              e.target.style.height = "auto";
+              e.target.style.height = e.target.scrollHeight + "px";
+            }}
             value={diagnostic}
             onChange={(e) => setDiagnostic(e.target.value)}
           />

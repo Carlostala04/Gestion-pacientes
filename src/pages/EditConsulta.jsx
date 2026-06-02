@@ -68,11 +68,12 @@ function EditConsultaForm({ consulta, patientId, consultaId, doctor }) {
   const [nextDate, setNextDate] = useState(initialNextDate);
   const [saving, setSaving] = useState(false);
 
+  const diagnosticRef = useRef(null);
   const observationsRef = useRef(null);
   const prescripcionRef = useRef(null);
 
   useEffect(() => {
-    [observationsRef, prescripcionRef].forEach((ref) => {
+    [diagnosticRef, observationsRef, prescripcionRef].forEach((ref) => {
       if (ref.current) {
         ref.current.style.height = "auto";
         ref.current.style.height = ref.current.scrollHeight + "px";
@@ -128,9 +129,14 @@ function EditConsultaForm({ consulta, patientId, consultaId, doctor }) {
           <label>Hora de consulta</label>
           <input type="time" value={consulta.time ?? ""} disabled />
           <label>Diagnóstico</label>
-          <input
-            type="text"
+          <textarea
+            ref={diagnosticRef}
             placeholder="Diagnóstico principal"
+            rows={1}
+            onInput={(e) => {
+              e.target.style.height = "auto";
+              e.target.style.height = e.target.scrollHeight + "px";
+            }}
             value={diagnostic}
             onChange={(e) => setDiagnostic(e.target.value)}
           />
