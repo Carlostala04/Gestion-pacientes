@@ -3,8 +3,7 @@ export function imprimirPrescripcion({ diagnostic, prescripcion, consultaDate })
     consultaDate ??
     new Date().toLocaleDateString("es-NI", { dateStyle: "full" });
 
-  const win = window.open("", "_blank");
-  win.document.write(`<!DOCTYPE html>
+  const html = `<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -35,8 +34,18 @@ export function imprimirPrescripcion({ diagnostic, prescripcion, consultaDate })
     <div><div class="firma-linea"></div><div>Dr. Carlos Rodríguez</div><div>Médico General</div></div>
   </div>
 </body>
-</html>`);
-  win.document.close();
-  win.focus();
-  win.print();
+</html>`;
+
+  const iframe = document.createElement("iframe");
+  iframe.style.cssText = "position:fixed;right:0;bottom:0;width:0;height:0;border:0;";
+  document.body.appendChild(iframe);
+
+  iframe.contentDocument.open();
+  iframe.contentDocument.write(html);
+  iframe.contentDocument.close();
+
+  iframe.contentWindow.focus();
+  iframe.contentWindow.print();
+
+  setTimeout(() => document.body.removeChild(iframe), 1000);
 }
